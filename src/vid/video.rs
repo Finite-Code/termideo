@@ -1,6 +1,12 @@
 use opencv::videoio;
 use opencv::prelude::*;
 
+use crossterm;
+use std::io::stdout;
+use std::io::Write;
+use std::{thread, time::Duration};
+use crossterm::{execute, cursor::MoveTo};
+
 pub fn video() -> Result<(), Box<dyn std::error::Error>> {
 
 	let v_path = "vid/bad.mp4"; // hardcoded bad apple video for now...
@@ -9,18 +15,26 @@ pub fn video() -> Result<(), Box<dyn std::error::Error>> {
 	let mut mat = Mat::default();
 	let mut vid = videoio::VideoCapture::from_file(v_path, videoio::CAP_ANY)?;
 
+	let mut framebuffer = String::new();
+
 	println!("Starting video processing...");
 
 	loop {
 		let success = vid.read(&mut mat)?;
 
+		if !success {
+			println!("Video Ended!");
+			break;
+		}
 
 		let wdh = mat.cols(); // define width
 		let hgh = mat.rows(); //  and   height
 
-		for y in (0..hgh).step_by(2){
-        	let mut row_str = String::new();
+		execute!(stdout(), MoveTo(0,0))?;
 
+    	let mut framebuffer = String::new();
+
+		for y in (0..hgh).step_by(2){
         	for x in 0..wdh{
 
 				let pix = mat.at_2d::<opencv::core::Vec3b>(y, x)?;
@@ -36,16 +50,14 @@ pub fn video() -> Result<(), Box<dyn std::error::Error>> {
             	let index = ((luma/255.0) * (density.len() - 1) as f32) as usize;
 
             	let ascii_char = density.chars().nth(index).unwrap();
-            	row_str.push(ascii_char);
+            	framebuffer.push(ascii_char);
         	}
-
-        	println!("{}", row_str);
+			framebuffer.push('\n');
     	}
-		
-		if !success {
-			println!("Video Ended!");
-			break;
-		}
+		println!("{}", framebuffer);
+		stdout().flush()?;
+
+		thread::sleep(Duration::from_millis(33)); //hardcoded 30fps rn
 	}
 
 	Ok(())
