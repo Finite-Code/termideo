@@ -6,7 +6,6 @@ pub mod img;
 use crate::img::image;
 use crate::vid::video;
 
-
 fn main(){
     println!("Welcome to termideo, get started by selecting:");
     println!("   1. Image");
@@ -32,6 +31,7 @@ fn main(){
     }
     else if slctn==2{
         println!("Starting in Video mode...");
+        video::video();
     }
     else{
         println!("Invalid Selection!");

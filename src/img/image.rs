@@ -1,14 +1,5 @@
-use crossterm::{
-    cursor::{Hide, MoveTo, Show},
-    execute,
-    terminal::{Clear, ClearType, EnterAlternateScreen, LeaveAlternateScreen},
-};
-
 use image::ImageReader;
 use image::GenericImageView;
-
-use std::io::{stdout, Write};
-use std::{thread, time::Duration};
 
 pub fn image() -> Result<(), Box<dyn std::error::Error>> {
 
