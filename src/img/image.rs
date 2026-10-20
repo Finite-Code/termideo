@@ -10,7 +10,7 @@ use image::GenericImageView;
 use std::io::{stdout, Write};
 use std::{thread, time::Duration};
 
-fn image() -> Result<(), Box<dyn std::error::Error>> {
+pub fn image() -> Result<(), Box<dyn std::error::Error>> {
 
     let buffer = "img/bad.jpg";
     let density = " .:-=*#%@";
