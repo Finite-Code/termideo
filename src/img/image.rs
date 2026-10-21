@@ -4,7 +4,8 @@ use image::GenericImageView;
 pub fn image() -> Result<(), Box<dyn std::error::Error>> {
 
     let buffer = "img/bad.jpg";
-    let density = " .:-=*#%@";
+    let density = " .,:;i1tfLCG08#@";
+	let chars: Vec<char> = density.chars().collect();
     let img = ImageReader::open(buffer)?.decode()?;
 
     let (wdh, hgh) = img.dimensions();
@@ -24,7 +25,7 @@ pub fn image() -> Result<(), Box<dyn std::error::Error>> {
 
             let index = ((luma/255.0) * (density.len() - 1) as f32) as usize;
 
-            let ascii_char = density.chars().nth(index).unwrap();
+            let ascii_char = chars[index];
             row_str.push(ascii_char);
         }
 

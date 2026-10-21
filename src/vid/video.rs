@@ -48,7 +48,7 @@ pub fn video() -> Result<(), Box<dyn std::error::Error>> {
 			println!("Video Ended!");
 			break;
 		}
-
+	
 		let wdh = remat.cols(); // define width
 		let hgh = remat.rows(); //  and   height
 
