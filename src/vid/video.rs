@@ -67,7 +67,10 @@ pub fn video() -> Result<(), Box<dyn std::error::Error>> {
 
             	// Internet formula: high green cause we are sensitive to it
 				// Also: opencv uses BGR
-            	let luma = (b*0.0722) + (g*0.7152) + (r*0.2126);
+            	let mut luma = (b*0.0722) + (g*0.7152) + (r*0.2126);
+
+				if luma < 15.0 {luma=0.00;}
+				if luma >240.0 {luma=255.0;}
 
             	let index = ((luma/255.0) * (chars.len() - 1) as f32) as usize;
 
