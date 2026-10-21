@@ -14,7 +14,8 @@ use std::time::Instant;
 pub fn video() -> Result<(), Box<dyn std::error::Error>> {
 
 	let v_path = "vid/bad.mp4"; // hardcoded bad apple video for now...
-	let density = " .:-=*#%@";
+	let density = " .'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
+	let chars: Vec<char> = density.chars().collect();
 
 	let mut mat = Mat::default();
 	let mut remat = Mat::default(); // another container!
@@ -68,9 +69,9 @@ pub fn video() -> Result<(), Box<dyn std::error::Error>> {
 				// Also: opencv uses BGR
             	let luma = (b*0.0722) + (g*0.7152) + (r*0.2126);
 
-            	let index = ((luma/255.0) * (density.len() - 1) as f32) as usize;
+            	let index = ((luma/255.0) * (chars.len() - 1) as f32) as usize;
 
-            	let ascii_char = density.chars().nth(index).unwrap();
+            	let ascii_char = chars[index];
             	framebuffer.push(ascii_char);
         	}
 			framebuffer.push('\n');
