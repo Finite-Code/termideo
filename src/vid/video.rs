@@ -4,10 +4,12 @@ use opencv::imgproc;
 use opencv::core::Size;
 
 use crossterm;
+use crossterm::{execute, cursor::MoveTo};
+
 use std::io::stdout;
 use std::io::Write;
 use std::{thread, time::Duration};
-use crossterm::{execute, cursor::MoveTo};
+use std::time::Instant;
 
 pub fn video() -> Result<(), Box<dyn std::error::Error>> {
 
@@ -23,9 +25,13 @@ pub fn video() -> Result<(), Box<dyn std::error::Error>> {
 	let fps = vid.get(videoio::CAP_PROP_FPS)?;
 	let frametime = (1000.0/fps) as u64;
 
+	let tgt_f_time = Duration::from_millis((1000.0/fps) as u64);
+
 	println!("Starting video processing...");
 
 	loop {
+		let start = std::time::Instant::now();
+
 		let (term_w, term_h) = crossterm::terminal::size()?; // Keep checking the size
 		
 		let success = vid.read(&mut mat)?;
@@ -72,7 +78,9 @@ pub fn video() -> Result<(), Box<dyn std::error::Error>> {
 		println!("{}", framebuffer);
 		stdout().flush()?;
 
-		thread::sleep(Duration::from_millis(frametime));
+		if let Some(remaining) = tgt_f_time.checked_sub(start.elapsed()){
+			thread::sleep(remaining);
+		}
 	}
 
 	Ok(())
