@@ -1,5 +1,7 @@
 use opencv::videoio;
 use opencv::prelude::*;
+use opencv::imgproc;
+use opencv::core::Size;
 
 use crossterm;
 use std::io::stdout;
@@ -13,6 +15,7 @@ pub fn video() -> Result<(), Box<dyn std::error::Error>> {
 	let density = " .:-=*#%@";
 
 	let mut mat = Mat::default();
+	let mut remat = Mat::default(); // another container!
 	let mut vid = videoio::VideoCapture::from_file(v_path, videoio::CAP_ANY)?;
 
 	let mut framebuffer = String::new();
@@ -23,24 +26,33 @@ pub fn video() -> Result<(), Box<dyn std::error::Error>> {
 	println!("Starting video processing...");
 
 	loop {
+		let (term_w, term_h) = crossterm::terminal::size()?; // Keep checking the size
+		
 		let success = vid.read(&mut mat)?;
+
+		imgproc::resize(
+			&mat, &mut remat,
+			Size::new(term_w as i32, (term_h - 1) as i32),
+			0.0, 0.0,
+			imgproc::INTER_LINEAR
+		)?;
 
 		if !success {
 			println!("Video Ended!");
 			break;
 		}
 
-		let wdh = mat.cols(); // define width
-		let hgh = mat.rows(); //  and   height
+		let wdh = remat.cols(); // define width
+		let hgh = remat.rows(); //  and   height
 
 		execute!(stdout(), MoveTo(0,0))?;
 
     	let mut framebuffer = String::new();
 
-		for y in (0..hgh).step_by(2){
+		for y in (0..hgh){ // DON'T stepby(2) anymore cuz imgproc's got it
         	for x in 0..wdh{
 
-				let pix = mat.at_2d::<opencv::core::Vec3b>(y, x)?;
+				let pix = remat.at_2d::<opencv::core::Vec3b>(y, x)?;
 
             	let b = pix[0] as f32;
             	let g = pix[1] as f32;
@@ -60,7 +72,7 @@ pub fn video() -> Result<(), Box<dyn std::error::Error>> {
 		println!("{}", framebuffer);
 		stdout().flush()?;
 
-		thread::sleep(Duration::from_millis(frametime)); //hardcoded 30fps rn
+		thread::sleep(Duration::from_millis(frametime));
 	}
 
 	Ok(())
