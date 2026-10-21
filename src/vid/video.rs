@@ -14,7 +14,7 @@ use std::time::Instant;
 pub fn video() -> Result<(), Box<dyn std::error::Error>> {
 
 	let v_path = "vid/bad.mp4"; // hardcoded bad apple video for now...
-	let density = " .'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
+	let density = " .,:;i1tfLCG08#@";
 	let chars: Vec<char> = density.chars().collect();
 
 	let mut mat = Mat::default();
