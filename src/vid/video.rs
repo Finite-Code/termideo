@@ -41,7 +41,7 @@ pub fn video() -> Result<(), Box<dyn std::error::Error>> {
 			&mat, &mut remat,
 			Size::new(term_w as i32, (term_h - 1) as i32),
 			0.0, 0.0,
-			imgproc::INTER_LINEAR
+			imgproc::INTER_AREA
 		)?;
 
 		if !success {
