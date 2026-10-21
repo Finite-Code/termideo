@@ -17,6 +17,9 @@ pub fn video() -> Result<(), Box<dyn std::error::Error>> {
 
 	let mut framebuffer = String::new();
 
+	let fps = vid.get(videoio::CAP_PROP_FPS)?;
+	let frametime = (1000.0/fps) as u64;
+
 	println!("Starting video processing...");
 
 	loop {
@@ -57,7 +60,7 @@ pub fn video() -> Result<(), Box<dyn std::error::Error>> {
 		println!("{}", framebuffer);
 		stdout().flush()?;
 
-		thread::sleep(Duration::from_millis(33)); //hardcoded 30fps rn
+		thread::sleep(Duration::from_millis(frametime)); //hardcoded 30fps rn
 	}
 
 	Ok(())
