@@ -21,9 +21,12 @@ pub fn image() -> Result<(), Box<dyn std::error::Error>> {
             let b = pix[2] as f32;
 
             // Internet formula: high green cause we are sensitive to it
-            let luma = (r*0.2126) + (g*0.7152) + (b*0.0722);
+            let mut luma = (r*0.2126) + (g*0.7152) + (b*0.0722);
 
-            let index = ((luma/255.0) * (density.len() - 1) as f32) as usize;
+            if luma < 15.0 {luma=0.00;}
+			if luma >240.0 {luma=255.0;}
+
+            let index = ((luma/255.0) * (chars.len() - 1) as f32) as usize;
 
             let ascii_char = chars[index];
             row_str.push(ascii_char);
