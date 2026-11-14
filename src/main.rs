@@ -7,33 +7,18 @@ use crate::img::image;
 use crate::vid::video;
 
 fn main(){
-    println!("Welcome to termideo, get started by selecting:");
-    println!("   1. Image");
-    println!("   2. Video");
 
-    let mut selection = String::new();
+    let mut path = String::new();
+
+    // path = "screw you Ananya".to_string(); just to check if the parser is working, hehe
+
+    if(path.trim().is_empty()){
+        println!("You didn't submit a path, paste one in, or press Ctrl+C to exit.");
+    }
 
     io::stdin()
-        .read_line(&mut selection)
-        .expect("Failed to read!");
+        .read_line(&mut path)
+        .expect("Failed to read a path!");
 
-    let slctn: i32 = match selection.trim().parse(){
-        Ok(num) => num,
-        Err(_) => {
-            println!("Ehh: Did you enter a valid number?");
-            return;
-        }
-    };
-
-    if slctn==1 {
-        println!("Starting in Image mode...");
-        image::image();
-    }
-    else if slctn==2{
-        println!("Starting in Video mode...");
-        video::video();
-    }
-    else{
-        println!("Invalid Selection!");
-    }
+    path = path.trim().to_string();
 }
