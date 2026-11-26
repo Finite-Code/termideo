@@ -1,5 +1,8 @@
 use std::io;
+use crossterm::{execute, cursor::{Show, MoveToNextLine}, terminal::{Clear, ClearType}};
+use std::io::{stdout, Write};
 use std::env;
+
 
 // the modularized components
 pub mod vid;
@@ -9,8 +12,9 @@ use crate::vid::video;
 use crate::video::video;
 use crate::image::image;
 
-
 fn main() {
+    letme_exit();
+
     let args: Vec<String> = env::args().collect();
     let mut path = String::new();
 
@@ -60,4 +64,17 @@ fn help(){
     println!("SUPPORTED FORMATS: ");
     println!("      Image: .png .jpg .jpeg .tiff .bmp .ico .avif");
     println!("      Video: .mp4 .mov .gif")
+}
+
+fn letme_exit() {
+    ctrlc::set_handler(move || {
+            // display cursor before we leave
+            let _ = execute!(stdout(), MoveToNextLine(1), Clear(ClearType::CurrentLine), Show);
+
+            println!("Performing a clean exit...");
+            let _ = stdout().flush();
+
+            println!("Done");
+            std::process::exit(0);
+        }).expect("Error exiting cleanly!");
 }
