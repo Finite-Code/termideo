@@ -26,11 +26,14 @@ This project was written by me in Rust. Initially as I planned it to be a Cyberp
    cd /path/to/termideo
    ```
 
-<b>3. Build it! </b>
-   ```bash
-   cargo build --release
-   ```
-    > Tip: You can switch the `--release` flag to `--debug` if you want to debug or help with the code. Note that debug builds can be slower, although the project is notably quick to compile due to it's small size.
+**3. Build it!**
+
+```bash
+cargo build --release
+```
+
+> **Tip:** You can omit the `--release` flag if you want to build in debug mode to debug or help with the code. Note that debug builds can be slower, although the project is notably quick to compile due to its small size.
+
 
 <b>4. Run it! </b>
    ```bash
