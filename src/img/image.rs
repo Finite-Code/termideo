@@ -5,9 +5,9 @@ use crossterm::{execute, cursor::{Hide, Show, MoveTo}, terminal::{Clear, ClearTy
 
 use std::io::{stdout, Write};
 
-pub fn image() -> Result<(), Box<dyn std::error::Error>> {
+pub fn image(buffer: &str) -> Result<(), Box<dyn std::error::Error>> {
 
-    let buffer = "img/bad.jpg";
+    // let buffer = "img/bad.jpg"; don't need this anymore
     let density = " .,:;i1tfLCG08#@";
 	let chars: Vec<char> = density.chars().collect();
     let img = ImageReader::open(buffer)?.decode()?;

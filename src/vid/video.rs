@@ -11,17 +11,20 @@ use std::io::Write;
 use std::{thread, time::Duration};
 use std::time::Instant;
 
-pub fn video() -> Result<(), Box<dyn std::error::Error>> {
+pub fn video(v_path: &str) -> Result<(), Box<dyn std::error::Error>> {
 
-	let v_path = "vid/bad.mp4"; // hardcoded bad apple video for now...
+	// let v_path = "vid/bad.mp4"; // hardcoded bad apple video not needed anymore!
 	let density = " .,:;i1tfLCG08#@";
 	let chars: Vec<char> = density.chars().collect();
 
 	let mut mat = Mat::default();
 	let mut remat = Mat::default(); // another container!
 	let mut vid = videoio::VideoCapture::from_file(v_path, videoio::CAP_ANY)?;
-
 	let mut framebuffer = String::new();
+
+	if !vid.is_opened()?{
+		return Err(format!("Couldn't open the file!: {}", v_path).into());
+	}
 
 	let fps = vid.get(videoio::CAP_PROP_FPS)?;
 	let frametime = (1000.0/fps) as u64;
