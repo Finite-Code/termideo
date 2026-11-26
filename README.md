@@ -14,7 +14,7 @@ The Downloads for the project will be available on the [Releases](https://github
 ## Building from Source
 
 To build:
-> Building termideo from source requires you to have Rust installed on your system. Do so by following the instructions from the [official Rust website](https:/www.rust-lang.org/tools/install).
+> Building termideo from source requires you to have Rust installed on your system. Do so by following the instructions from the [official Rust website](https://www.rust-lang.org/tools/install).
 
 1. Clone the repository:
    ```bash
