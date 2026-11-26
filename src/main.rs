@@ -3,7 +3,6 @@ use crossterm::{execute, cursor::{Show, MoveToNextLine}, terminal::{Clear, Clear
 use std::io::{stdout, Write};
 use std::env;
 
-
 // the modularized components
 pub mod vid;
 pub mod img;
@@ -72,7 +71,6 @@ fn letme_exit() {
             println!("Performing a clean exit...");
             let _ = stdout().flush();
 
-            println!("Done");
             std::process::exit(0);
         }).expect("Error exiting cleanly!");
 }
