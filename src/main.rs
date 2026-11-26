@@ -15,7 +15,14 @@ fn main() {
     let mut path = String::new();
 
     if args.len() > 1{
+        let arg = &args[1];
+
         path = args[1].clone();
+
+        if arg=="-h" || arg == "--help" || arg == "help"{
+            help();
+            return();
+        }
     } else {
         println!("You sir, didn't submit a path, paste one in, or press Ctrl+C to exit.");
         io::stdin()
@@ -42,4 +49,15 @@ fn main() {
     else {
         println!("something's not right... check the supported formats, path");
     }
+}
+
+fn help(){
+    println!("Termideo: ASCII Video, now over the terminal with Image Support!");
+    // println!("          with GPU acceleration support for video."); some day
+    println!("USAGE: ");
+    println!("      termideo <PATH>         Displays any supported image or video file.");
+    println!("      termideo -h, --help     Show this message");
+    println!("SUPPORTED FORMATS: ");
+    println!("      Image: .png .jpg .jpeg .tiff .bmp .ico .avif");
+    println!("      Video: .mp4 .mov .gif")
 }
