@@ -7,10 +7,8 @@ use std::env;
 // the modularized components
 pub mod vid;
 pub mod img;
-use crate::img::image;
-use crate::vid::video;
-use crate::video::video;
-use crate::image::image;
+use crate::img::image::image;
+use crate::vid::video::video;
 
 fn main() {
     letme_exit();
