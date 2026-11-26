@@ -1,21 +1,27 @@
 use std::io;
+use std::env;
 
+// the modularized components
 pub mod vid;
 pub mod img;
-
 use crate::img::image;
 use crate::vid::video;
-
 use crate::video::video;
 use crate::image::image;
 
+
 fn main() {
+    let args: Vec<String> = env::args().collect();
     let mut path = String::new();
 
-    println!("You sir, didn't submit a path, paste one in, or press Ctrl+C to exit.");
-    io::stdin()
-        .read_line(&mut path)
-        .expect("Failed to read a path!");
+    if args.len() > 1{
+        path = args[1].clone();
+    } else {
+        println!("You sir, didn't submit a path, paste one in, or press Ctrl+C to exit.");
+        io::stdin()
+            .read_line(&mut path)
+            .expect("Failed to read a path!");
+    }
 
     let path = path.trim();
 
