@@ -31,3 +31,9 @@ To build:
    cargo build --release
    ```
     > Tip: You can switch the `--release` flag to `--debug` if you want to debug or help with the code. Note that debug builds can be slower, although the project is notably quick to compile due to it's small size.
+
+4. Run it!
+   ```bash
+   cargo run --release
+   ```
+   > To pass arguements like path to a file or help. Use `cargo run --release -- <whatever arguement>`
