@@ -8,31 +8,31 @@ termideo uses ASCII characters to ensure broad compatibility across various term
 This project was written by me in Rust. Initially as I planned it to be a Cyberpunk-themed video player that lives in the terminal. It has since turned into a more general purpose media player.
 
 ## Downloads
-The Downloads for the project will be available on the [Releases](https://github.com/Finite-Code/termideo/releases) page very soon. Till then you can build the project from source by following the instructions below.
+<i>The Downloads for the project will be available on the [Releases](https://github.com/Finite-Code/termideo/releases) page very soon. </i> Till then you can build the project from source by following the instructions below.
 
 
 ## Building from Source
 
-To build:
+<b>To build: </b>
 > Building termideo from source requires you to have Rust installed on your system. Do so by following the instructions from the [official Rust website](https://www.rust-lang.org/tools/install).
 
-1. Clone the repository:
+<b>1. Clone the repository: </b>
    ```bash
    git clone https://github.com/Finite-Code/termideo.git
    ```
 
-2. Navigate to the project folder:
+<b>2. Navigate to the project folder: </b>
    ```bash
    cd /path/to/termideo
    ```
 
-3. Build it!
+<b>3. Build it! </b>
    ```bash
    cargo build --release
    ```
     > Tip: You can switch the `--release` flag to `--debug` if you want to debug or help with the code. Note that debug builds can be slower, although the project is notably quick to compile due to it's small size.
 
-4. Run it!
+<b>4. Run it! </b>
    ```bash
    cargo run --release
    ```
